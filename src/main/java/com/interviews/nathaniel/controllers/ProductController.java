@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.interviews.nathaniel.communication.RedskyComms;
 import com.interviews.nathaniel.models.Product;
+import com.interviews.nathaniel.repositories.mongo.PriceRepository;
 
 /**
  * @author Nathaniel Engelsen
@@ -29,6 +30,7 @@ public class ProductController {
     @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public String product(@PathVariable long id, @RequestBody Product product) {
-    	return "Not yet implemented";
+    	PriceRepository.savePrice(product);
+    	return "testing";
     }
 }
