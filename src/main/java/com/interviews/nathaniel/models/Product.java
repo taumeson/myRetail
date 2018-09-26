@@ -9,10 +9,15 @@ import com.interviews.nathaniel.communication.RedskyComms;
 import com.interviews.nathaniel.interfaces.IPriceRepository;
 import com.interviews.nathaniel.repositories.mongo.PriceRepository;
 
-/**
- * @author Nathaniel Engelsen
- *
- */
+
+/********
+* 
+* @author Nathaniel Engelsen
+* @version 1.0
+* Date 09/26/2018
+* Purpose POJO representing a product in our inventory
+*
+/****/
 public class Product {
 
     private long id;
@@ -23,23 +28,29 @@ public class Product {
     public Product(long id, String name, Price current_price) {
         this.id = id;
         this.current_price = current_price;
-        this.setup();
+        this.name = name;
     }
 
     public Product()
     {
     	this.id = -1;
-    	this.current_price = new Price(Decimal2f.valueOf(0), "UNK");
+    	this.current_price = Price.Default();
     }
     
     public Product(IPriceRepository priceRepository, long id) {
     	this.id = id;
-    	this.updateCurrent_price(priceRepository);
-    	this.setup();
+    	
+    	// a primary requirement is to keep the price up to date in our price data store
+    	this.updateCurrent_price(priceRepository); 
+    	
+    	// a primary requirement is to update the name of the product from the Redsky API
+    	this.updateName();
     }
 
-    private void setup()
+    private void updateName()
     {
+    	// update the name of the product from the API during instantiation
+    	// TODO store this in a product data store
     	String name = RedskyComms.GetProductName(this.id);
     	this.name = name;
     }
@@ -59,6 +70,7 @@ public class Product {
 
     public void updateCurrent_price(IPriceRepository priceRepository)
     {
+    	// update the price from the price data store
     	Price p = priceRepository.getPrice(this);
     	if (p != null)
     	{
