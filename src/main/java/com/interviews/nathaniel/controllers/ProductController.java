@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.interviews.nathaniel.communication.RedskyComms;
+import com.interviews.nathaniel.interfaces.IPriceRepository;
 import com.interviews.nathaniel.models.Product;
 import com.interviews.nathaniel.repositories.mongo.PriceRepository;
 
@@ -21,16 +22,24 @@ import com.interviews.nathaniel.repositories.mongo.PriceRepository;
 @RestController
 public class ProductController {
 
+	private IPriceRepository PriceRepository;
+	
+	public ProductController(IPriceRepository priceRepository)
+	{
+		PriceRepository = priceRepository;
+	}
+	
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Product product(@PathVariable long id) {
-        return new Product(id);
+    	Product product = new Product(PriceRepository,id);
+        return product;
     }
     
     @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public String product(@PathVariable long id, @RequestBody Product product) {
+    public Product product(@PathVariable long id, @RequestBody Product product) {
     	PriceRepository.savePrice(product);
-    	return "testing";
+    	return new Product(PriceRepository, id);
     }
 }

@@ -29,4 +29,9 @@ public class ProductAdapter {
 		if(doc == null) return null;
 		return new Document("_id", doc.get("_id"));
 	}
+	
+	public static Document getIdDocument(long id)
+	{
+		return new Document("_id", id);
+	}
 }

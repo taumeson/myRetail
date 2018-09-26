@@ -6,6 +6,8 @@ package com.interviews.nathaniel.models;
 import org.decimal4j.immutable.Decimal2f;
 
 import com.interviews.nathaniel.communication.RedskyComms;
+import com.interviews.nathaniel.interfaces.IPriceRepository;
+import com.interviews.nathaniel.repositories.mongo.PriceRepository;
 
 /**
  * @author Nathaniel Engelsen
@@ -13,9 +15,10 @@ import com.interviews.nathaniel.communication.RedskyComms;
  */
 public class Product {
 
-    private final long id;
+    private long id;
     private String name;
-    private final Price current_price;
+    private Price current_price;
+    private IPriceRepository priceRepository;
 
     public Product(long id, String name, Price current_price) {
         this.id = id;
@@ -23,10 +26,16 @@ public class Product {
         this.setup();
     }
 
-    public Product(long id) {
+    public Product()
+    {
+    	this.id = -1;
+    	this.current_price = new Price(Decimal2f.valueOf(0), "UNK");
+    }
+    
+    public Product(IPriceRepository priceRepository, long id) {
     	this.id = id;
-    	this.current_price = new Price(Decimal2f.valueOf(12.12),"USD");
-        this.setup();
+    	this.updateCurrent_price(priceRepository);
+    	this.setup();
     }
 
     private void setup()
@@ -46,5 +55,14 @@ public class Product {
     public Price getCurrent_price()
     {
     	return current_price;
+    }    
+
+    public void updateCurrent_price(IPriceRepository priceRepository)
+    {
+    	Price p = priceRepository.getPrice(this);
+    	if (p != null)
+    	{
+    		this.current_price = p;
+    	}
     }
 }
