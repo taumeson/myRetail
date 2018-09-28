@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.interviews.nathaniel.communication.RedskyComms;
+import com.interviews.nathaniel.factories.ProductFactory;
 import com.interviews.nathaniel.interfaces.IPriceRepository;
 import com.interviews.nathaniel.models.Product;
 import com.interviews.nathaniel.repositories.mongo.PriceRepository;
@@ -38,8 +39,7 @@ public class ProductController {
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET) // we don't need to specify GET
     @ResponseBody // we include values in the response body
     public ResponseEntity<Product> product(@PathVariable long id) {
-    	
-    	Product product = new Product(PriceRepository,id);
+    	Product product = ProductFactory.Create(PriceRepository, id);
     	HttpStatus responseStatus = HttpStatus.OK; // by default we'll respond 200 for GET
     	
     	// i dislike not having output variables. not worth creating a custom return class
@@ -59,12 +59,12 @@ public class ProductController {
     @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
     @ResponseBody // we include values in the response body
     public ResponseEntity<Product> product(@PathVariable long id, @RequestBody Product product) {
-    	
+    
     	HttpStatus responseStatus = HttpStatus.OK; // by default we'll respond 200 for PUT
 
     	// we will return "not modified" if we couldn't save the price
     	responseStatus = PriceRepository.savePrice(product) ? HttpStatus.OK : HttpStatus.NOT_MODIFIED; 
    	
-    	return new ResponseEntity<Product>(new Product(PriceRepository, id), responseStatus); // we response 200 for PUT
+    	return new ResponseEntity<Product>(ProductFactory.Create(PriceRepository, id), responseStatus); // we response 200 for PUT
     }
 }
