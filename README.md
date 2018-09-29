@@ -29,4 +29,67 @@ Therefore the project has a handful of technologies and implementations that are
 <img src="https://spring.io/img/spring-by-pivotal-9066b55828deb3c10e27e609af322c40.png" alt="Spring Boot" width="250px" />
 
 **Spring Boot**
-Spring Boot was used as the basis of the REST API.  Spring is a premier MVC framework and toolset available for Java, and their Spring Boot initiative provides quickstart applications.  These application starters are perfectly suited not just to coding challenges but can be made production-ready with very little modifications. 
+
+Spring Boot was used as the basis of the REST API.  Spring is a premier MVC framework and toolset available for Java, and their Spring Boot initiative provides quickstart applications.  These application starters are perfectly suited not just to coding challenges but can be made production-ready with very few modifications. Spring Boot provides configuration and automation, including autowiring, a web server, dependencies, testing tools, etc.  Their tagline is representative of the change they bring to application creation: *It's kind of like magic.*
+
+<img src="https://webassets.mongodb.com/_com_assets/cms/MongoDB-Logo-5c3a7405a85675366beb3a5ec4c032348c390b3f142f5e6dddf1d78e2df5cb5c.png" alt="MongoDB" width="250px" />
+
+**MongoDB**
+
+MongoDB was used as the nosql data store required for storing price information. MongoDB is tremendously fast and highly scalable and ready for production usage.  Admittedly they had speed bumps early on, but they have made a real name for themselves and have found a place in one of the next big ecosystems - the MEAN stack.
+
+<img src="https://swagger.io/swagger/media/assets/images/swagger_logo.svg" alt="Swagger" width="250px" />
+
+**Swagger**
+
+Swagger is a major player in the API documentation and testing space.  By creating "easy-to-use" configuration files and annotations Swagger enables thousands of developers to document and test their APIs every day throughout the world. Swagger has donated their specifications to the Open API Initiative as the Open API Specification to enable every developer to have tools for their platform.
+
+<img src="https://maven.apache.org/images/maven-logo-black-on-white.png" alt="Maven" width="250px" />
+
+**Maven**
+
+Maven is used as our dependency and project management tool. Java has a long line of fantastic tools in this space and Maven is one of the best.
+
+<img src="http://decimal4j.org/img/d4j-perf-overview.png" alt="Decimal4j" width="250px" />
+
+**Decimal4j**
+
+In order to work with currencies I prefer to work with fixed-point numeric values instead of floating-point. Java has subpar experiences with fixed-point numbers, so I went with one of the industry standard implementations. Decimal4j provides a wealth of fixed-point data types and arithmetic with fast performance. 
+
+### Getting Started
+1. Install JDK with a version >= 10.0.2
+2. Install the Spring Tool Suite (STS) from https://spring.io/tools/sts/all. This application was created on version 3.9.6.
+3. Update your machine environment variables and classpath within STS
+4. Install MongoDB Community Server from https://www.mongodb.com/download-center#atlas. This application has been tesed on version 4.0.2
+5. Clone the repository from https://github.com/taumeson/myRetail.git or git@github.com:taumeson/myRetail.git
+
+Note: The following dependencies have been added to the pom.xml relative to a standard spring boot application. They are present in the repository as of September 29, 2018:
+```xml
+		<dependency>
+		    <groupId>org.mongodb</groupId>
+		    <artifactId>mongodb-driver-sync</artifactId>
+		    <version>3.8.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger2</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		    <version>2.8.0</version>
+		    <scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.decimal4j</groupId>
+		    <artifactId>decimal4j</artifactId>
+		    <version>1.0.3</version>
+		</dependency>
+```
+
+In order these are a MongoDB driver, Swagger annotations, Swagger UI (detailed below), and Decimal4j.
+
+6. Import the project into your STS workspace. It will automatically download required JARs from the internet based on your pom.xml
+
+Once the maven dependencies have been updated you're able to test and run the application.
