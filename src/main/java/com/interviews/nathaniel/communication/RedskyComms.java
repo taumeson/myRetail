@@ -43,8 +43,7 @@ public class RedskyComms {
 		// utilize spring's built-in tools to access RESTful APIs
 		RestTemplate restTemplate = new RestTemplate(); 
 		RedskyResponse redskyResponse;
-		
-		
+				
 		try {
 			// access redsky restful URL, auto-deserialize into the RedskyResponse wrapper
 			redskyResponse = restTemplate.getForObject(url, RedskyResponse.class);

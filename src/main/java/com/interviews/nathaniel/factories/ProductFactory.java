@@ -12,7 +12,7 @@ public class ProductFactory {
     {
     	// update the name of the product from the API during instantiation
     	// TODO store this in a product data store
-    	return  RedskyComms.GetProductName(p.getId());
+    	return RedskyComms.GetProductName(p.getId());
     }
 
     private static Price getCurrent_price(IPriceRepository priceRepository, Product p)

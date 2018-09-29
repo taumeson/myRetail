@@ -47,7 +47,7 @@ public class PriceRepository implements IPriceRepository {
 	public boolean savePrice(Product product)
 	{
 		// convert the product to a MongoDB object that we will save to the collection
-		DBObject mongoProduct = ProductAdapter.toDBObject(product);
+		DBObject mongoProduct = ProductAdapter.getDBObject(product);
 
 		// we'll upsert the prices
 		UpdateOptions options = new UpdateOptions();

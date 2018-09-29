@@ -30,11 +30,6 @@ public class Item implements Serializable {
 		this.product_description = new Product_Description();
 	}
 	
-	public Item(Product_Description product_description)
-	{
-		this.product_description = product_description;
-	}
-	
 	@JsonProperty("product_description")
 	public Product_Description getProduct_Description()
 	{

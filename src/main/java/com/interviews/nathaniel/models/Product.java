@@ -17,6 +17,18 @@ public class Product {
     private String name;
     private Price current_price;
     
+    public Product()
+    {
+    	
+    }
+    
+    public Product(long id, String name, Price current_price)
+    {
+    	this.id = id;
+    	this.name = name;
+    	this.current_price = current_price;
+    }
+    
 	public long getId() {
         return id;
     }

@@ -18,7 +18,7 @@ import com.mongodb.DBObject;
 /****/
 public class ProductAdapter {
 
-	public static DBObject toDBObject(Product product)
+	public static DBObject getDBObject(Product product)
 	{
 		// converting our POJO to a mongo db object requires some manipulation
 	    return new BasicDBObject("_id", product.getId())

@@ -23,12 +23,7 @@ public class Product_Description implements Serializable {
 	// we only (de)serialize title
 	@JsonProperty("title")
 	private String title;
-    
-    public Product_Description(String title)
-    {
-    	this.title = title;
-    }
-    
+
     public Product_Description() {
 	}
 

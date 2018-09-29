@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.interviews.nathaniel.communication.RedskyComms;
 import com.interviews.nathaniel.models.redsky.RedskyResponse;
 
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -59,5 +60,17 @@ public class RedskyCommsTests {
 
 		RedskyResponse redskyResponse = restTemplate.getForObject(urlTemplate, RedskyResponse.class);
 		assertThat(redskyResponse.getProduct().getItem().getProduct_Description().getTitle(), not(isEmptyOrNullString()));
+	}	
+	
+	@Test
+	public void doesRedskyCommsClassWork() {
+		
+		assertThat(RedskyComms.GetProductName(13860429), is("SpongeBob SquarePants: SpongeBob's Frozen Face-off"));
+	}	
+	
+	@Test
+	public void doesRedskyCommsClassThrow404s() {
+		
+		assertThat(RedskyComms.GetProductName(00000), is("Product Not Found"));
 	}	
 }

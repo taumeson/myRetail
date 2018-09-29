@@ -29,12 +29,7 @@ public class RedskyResponse implements Serializable {
 	{
 		this.product = new Product();
 	}
-	
-	public RedskyResponse(Product product)
-	{
-		this.product = product;
-	}
-	
+
 	@JsonProperty("product")
 	public Product getProduct()
 	{

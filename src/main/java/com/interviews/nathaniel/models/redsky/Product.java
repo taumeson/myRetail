@@ -28,12 +28,7 @@ public class Product implements Serializable {
 	{
 		this.item = new Item();
 	}
-	
-	public Product(Item item)
-	{
-		this.item = item;
-	}
-	
+
 	@JsonProperty("item")
 	public Item getItem()
 	{
