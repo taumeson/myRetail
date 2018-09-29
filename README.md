@@ -68,6 +68,12 @@ Maven is used as our dependency and project management tool. Java has a long lin
 
 In order to work with currencies I prefer to work with fixed-point numeric values instead of floating-point. Java has subpar experiences with fixed-point numbers, so I went with one of the industry standard implementations. Decimal4j provides a wealth of fixed-point data types and arithmetic with fast performance. 
 
+<img src="https://www.eclemma.org/images/jacocoreport.png" alt="JaCoCo" />
+
+**EclEmma and JaCoCo**
+
+I added EclEmma in order to generate JaCoCo JAva COde COverage reports.  I created a handful of unit tests but left integration tests blank, leading to a code coverage rate of about 60%
+
 ### Getting Started
 1. Install JDK with a version >= 10.0.2
 2. Install the Spring Tool Suite (STS) from https://spring.io/tools/sts/all. This application was created on version 3.9.6.
@@ -159,3 +165,17 @@ http://localhost:8080/swagger-ui.html
 Swagger also includes the ability to annotate models, but for this case study I only included the default functionality where Swagger uses reflection on the models that are required as request/response parameters. To evaluate these models, contract the "Product Management" section and expand the "Models" section
 
 <img src="https://user-images.githubusercontent.com/113290/46247769-c4ae2e80-c3d5-11e8-8bc6-71c90f12fba9.PNG" alt="our models" width="800px" />
+
+## Where do we go from here?
+If this were the nucleus of a production API we would need to do a number of additional items:
+1. Implement security and role-based authentication
+- We should always ensure we know who is able to access what within our applications, and services are no different. We would want to ensure we have a identity provider and a set of roles that can access our functionality.
+- We should ensure that our RBA is linked to our general API management strategy, i.e. quotas, rate-limits, etc.
+2. Decompose objects a bit further
+- There are some additional refactorings we should make so that testing is easier (and so we can increase our test coverage)
+3. Increase test coverage
+- Finish unit tests, implement mocks, complete integration tests.
+4. Create automated acceptance tests
+- Use a tool like selenium to create acceptance tests. Work these acceptance tests into our CI tool(s).
+5. Prepare for hosting
+- Decide how we want to approach hosting the application. Strategically Target is keeping up with the industry and implementing containerization and K8s. We would want to Dockerize the application and prepare it for packaging and deployment. Additionally, we would want to work it into Artifactory and Chef for automation purposes.
