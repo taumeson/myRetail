@@ -18,6 +18,14 @@ import com.interviews.nathaniel.interfaces.IPriceRepository;
 import com.interviews.nathaniel.models.Product;
 import com.interviews.nathaniel.repositories.mongo.PriceRepository;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
+
 /********
 * 
 * @author Nathaniel Engelsen
@@ -27,6 +35,7 @@ import com.interviews.nathaniel.repositories.mongo.PriceRepository;
 *
 /****/
 @RestController
+@Api(tags={"Product Management"}, value = "/product", description = "Retrieve and modify products in the catalog")
 public class ProductController {
 
 	private IPriceRepository PriceRepository; // abstract data layer from controller
@@ -36,9 +45,18 @@ public class ProductController {
 		PriceRepository = priceRepository; // dependency injection. we love spring.
 	}
 	
+    @ApiOperation(value = "Retrieve product from catalog", nickname = "getProduct", response = Product.class, produces = "application/json")
+    @ApiResponses( value = {
+    	@ApiResponse(code = 200, message = "Successfully retrieved product from catalog"),
+    	@ApiResponse(code = 404, message = "Unable to find product within catalog"),
+    	@ApiResponse(code = 500, message = "There has been an unexpected error")
+    })
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET) // we don't need to specify GET
     @ResponseBody // we include values in the response body
-    public ResponseEntity<Product> product(@PathVariable long id) {
+    public ResponseEntity<Product> product(
+    	    @ApiParam( name = "id", value = "The product identifier or SKU for the product being queried", required = true, defaultValue="1")
+    	    	@PathVariable long id
+    	) {
     	Product product = ProductFactory.Create(PriceRepository, id);
     	HttpStatus responseStatus = HttpStatus.OK; // by default we'll respond 200 for GET
     	
@@ -56,9 +74,18 @@ public class ProductController {
     	return new ResponseEntity<Product>(product, responseStatus);
     }
     
+    @ApiOperation(value = "Update product price", nickname = "putProduct", response = Product.class, produces = "application/json")
+    @ApiResponses( value = {
+    	@ApiResponse(code = 200, message = "Successfully updated product price"),
+    	@ApiResponse(code = 304, message = "Unable to modify product price")
+    })
     @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
     @ResponseBody // we include values in the response body
-    public ResponseEntity<Product> product(@PathVariable long id, @RequestBody Product product) {
+    public ResponseEntity<Product> product(
+    	    @ApiParam( name = "id", value = "The product identifier or SKU for the product being queried", required = true, defaultValue="1")
+    	    	@PathVariable long id, 
+       	    @ApiParam( name = "product", value = "The JSON data being used to update the product", required = true)
+    	    	@RequestBody Product product) {
     
     	HttpStatus responseStatus = HttpStatus.OK; // by default we'll respond 200 for PUT
 
