@@ -5,8 +5,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
-import java.math.RoundingMode;
-
 import org.bson.Document;
 import org.decimal4j.immutable.Decimal2f;
 import org.junit.Before;
@@ -18,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.interviews.nathaniel.models.Price;
 import com.interviews.nathaniel.models.Product;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 

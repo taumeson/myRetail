@@ -8,21 +8,12 @@ import static org.junit.Assert.*;
 import org.decimal4j.immutable.Decimal2f;
 
 import static org.hamcrest.Matchers.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.interviews.nathaniel.models.Price;
-import com.interviews.nathaniel.models.redsky.RedskyResponse;
 
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import com.interviews.nathaniel.factories.PriceFactory;
 
 @RunWith(SpringRunner.class)

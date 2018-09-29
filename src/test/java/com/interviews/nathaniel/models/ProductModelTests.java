@@ -1,7 +1,6 @@
 package com.interviews.nathaniel.models;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
 import org.decimal4j.immutable.Decimal2f;
@@ -10,10 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import com.interviews.nathaniel.factories.PriceFactory;
-
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()

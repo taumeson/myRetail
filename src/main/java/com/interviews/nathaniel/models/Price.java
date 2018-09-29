@@ -13,14 +13,19 @@ import org.decimal4j.immutable.Decimal2f;
 /****/
 public class Price {
 
-    private final Decimal2f value;
-    private final String currency_code; // TODO, use an enumeration for acceptable currency codes
+    private Decimal2f value;
+    private String currency_code; // TODO, use an enumeration for acceptable currency codes
 
     public Price(Decimal2f value, String currency_code) {
         this.value = value;
         this.currency_code = currency_code;
     }
 
+    public Price()
+    {
+    	
+    }
+    
     public Decimal2f getValue() {
         return value;
     }    

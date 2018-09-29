@@ -3,21 +3,10 @@
  */
 package com.interviews.nathaniel.communication;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.interviews.nathaniel.models.redsky.Product;
 import com.interviews.nathaniel.models.redsky.RedskyResponse;
 
 /********
@@ -30,6 +19,7 @@ import com.interviews.nathaniel.models.redsky.RedskyResponse;
 /****/
 
 public class RedskyComms {
+	protected static Logger logger = LoggerFactory.getLogger(RedskyComms.class); // implement logging
 
 	// for this code demonstration, we reuse the same URL template.
 	private static String urlTemplate = "https://redsky.target.com/v2/pdp/tcin/%s?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics";
@@ -37,8 +27,12 @@ public class RedskyComms {
 	// retrieve product name from the Redsky API
 	public static String GetProductName(long id)
 	{
+		logger.info(String.format("Retrieving product name for item %s", id));
+		
 		String url = String.format(urlTemplate, id);
 		String title = "No Title Information Available";
+		
+		logger.info(String.format("Item name retrieval url: %s", url));
 		
 		// utilize spring's built-in tools to access RESTful APIs
 		RestTemplate restTemplate = new RestTemplate(); 
@@ -47,9 +41,10 @@ public class RedskyComms {
 		try {
 			// access redsky restful URL, auto-deserialize into the RedskyResponse wrapper
 			redskyResponse = restTemplate.getForObject(url, RedskyResponse.class);
-			
+						
 			// the only information we are looking for is title
 			title = redskyResponse.getProduct().getItem().getProduct_Description().getTitle();
+			logger.info(String.format("Item title for id %s is %s", id, title));
 		} catch (HttpClientErrorException e) {
 			switch(e.getRawStatusCode())
 			{
@@ -62,6 +57,10 @@ public class RedskyComms {
 					title = "No Title Information Available"; 
 					break;
 			}
+		} catch (Exception e)
+		{
+			logger.error(String.format("Unhandled exception: %s", e));
+			title = "No Title Information Available"; // TODO create response class to return multiple values
 		}
 
 		return title;
