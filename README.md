@@ -42,7 +42,13 @@ MongoDB was used as the nosql data store required for storing price information.
 
 **Swagger**
 
-Swagger is a major player in the API documentation and testing space.  By creating "easy-to-use" configuration files and annotations Swagger enables thousands of developers to document and test their APIs every day throughout the world. Swagger has donated their specifications to the Open API Initiative as the Open API Specification to enable every developer to have tools for their platform.
+Swagger is a major player in the API documentation and testing space.  By creating "easy-to-use" configuration files and annotations Swagger enables thousands of developers to document and test their APIs every day throughout the world. Swagger has donated their specifications to the Open API Initiative as the Open API Specification to enable every developer to have tools for their platform. I use the Swagger UI component to provide web-based access to the application's REST API.
+
+<img src="https://www.vojtechruzicka.com/static/springfox-20a04815f6523b4b8790562ec88a6c60-a3725.jpg" alt="Springfox" width="250px" />
+
+**Springfox**
+
+Springfox bridges the gap between Swagger and Spring.  It provides annotations that are Swagger and OAS compatible that our Swagger UI components can use to provide usable functionality via a generated webpage.
 
 <img src="https://maven.apache.org/images/maven-logo-black-on-white.png" alt="Maven" width="250px" />
 
@@ -61,6 +67,7 @@ In order to work with currencies I prefer to work with fixed-point numeric value
 2. Install the Spring Tool Suite (STS) from https://spring.io/tools/sts/all. This application was created on version 3.9.6.
 3. Update your machine environment variables and classpath within STS
 4. Install MongoDB Community Server from https://www.mongodb.com/download-center#atlas. This application has been tesed on version 4.0.2
+  * Either install MongoDB as a service, or remember to run it before testing
 5. Clone the repository from https://github.com/taumeson/myRetail.git or git@github.com:taumeson/myRetail.git
 
 Note: The following dependencies have been added to the pom.xml relative to a standard spring boot application. They are present in the repository as of September 29, 2018:
@@ -88,8 +95,28 @@ Note: The following dependencies have been added to the pom.xml relative to a st
 		</dependency>
 ```
 
-In order these are a MongoDB driver, Swagger annotations, Swagger UI (detailed below), and Decimal4j.
+In order these are a MongoDB driver, Springfox annotations, Swagger UI, and Decimal4j.
 
 6. Import the project into your STS workspace. It will automatically download required JARs from the internet based on your pom.xml
 
 Once the maven dependencies have been updated you're able to test and run the application.
+
+### Testing with Maven
+This project was built on Windows PCs.  The CLI wrapper for Maven on Windows is mvnw.cmd, which is executable and included with the project.  To run the junit tests execute:
+
+```
+mvnw test
+```
+
+### Running the Application with Spring Boot
+The spring-boot goal for Maven makes it incredibly simple to run the project:
+
+```
+mvnw spring-boot:run
+```
+
+## Evaluating the project with Swagger
+Swagger UI is the component that I've chosen to provide a self-contained external endpoint for testing.  It's a tremendous tool that is used in production for an astounding variety of APIs.  To get started, run the application and navigate to:
+
+http://localhost:8080/swagger-ui.html
+
