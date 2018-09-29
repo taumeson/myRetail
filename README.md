@@ -25,6 +25,12 @@ Therefore the project has a handful of technologies and implementations that are
 *	Reads pricing information from a NoSQL data store and combines it with the product id and name from the HTTP request into a single response.
 *	*BONUS*: Accepts an HTTP PUT request at the same path (/products/{id}), containing a JSON request body similar to the GET response, and updates the product’s price in the data store.
 
+Based on these requirements, I created an application with the following hallmarks:
+1. Quick creation / starter packages
+2. Dependency injection
+3. HATEOAS
+4. Quick usage of logging, instrumentation, serialization, dependency management, etc.
+
 ### Core Technologies
 <img src="https://spring.io/img/spring-by-pivotal-9066b55828deb3c10e27e609af322c40.png" alt="Spring Boot" width="250px" />
 
@@ -120,3 +126,36 @@ Swagger UI is the component that I've chosen to provide a self-contained externa
 
 http://localhost:8080/swagger-ui.html
 
+<img src="https://user-images.githubusercontent.com/113290/46247770-c4ae2e80-c3d5-11e8-8782-e8d8ab505be0.PNG" alt="swagger landing page" width="800px" />
+
+#### Testing GET functionality
+
+1. Expand the "Product Management" section to expose the available functions - a single GET function and a single PUT
+
+<img src="https://user-images.githubusercontent.com/113290/46247771-c546c500-c3d5-11e8-87fa-5ed7b2d9fb8f.PNG" alt="our product management api functions" width="800px" />
+
+2. From here, expand the GET function and click on "Try it out". You will expose the ability to modify parameters and execute the function
+
+<img src="https://user-images.githubusercontent.com/113290/46247765-c4ae2e80-c3d5-11e8-82bb-59f107ad0a68.PNG" alt="our GET function" width="800px" />
+
+3. Enter a product identifier and click "Execute".  Use an example identifier from above, or use one of 13860427, 13860428, 13860429. Swagger will execute the GET API and return the response below under "Responses". It will also give you more information on alternative means of calling the function via command line.
+
+<img src="https://user-images.githubusercontent.com/113290/46247767-c4ae2e80-c3d5-11e8-9ac8-1f8e3730c3ac.PNG" alt="GET function request/response" width="800px" />
+
+4. Evaluate the response
+
+#### Testing PUT functionality
+
+1. Copy a GET function response into your clipboard. We will use an updated version of this payload as our "product" parameter
+2. Expand the PUT function and click on "Try it out"
+3. Paste the product JSON into the "product" parameter textbox, and copy/paste the id into the id textbox
+
+<img src="https://user-images.githubusercontent.com/113290/46247768-c4ae2e80-c3d5-11e8-9899-f6a33a16187b.PNG" alt="our PUT function" width="800px" />
+
+4. Click "Execute" and evaluate the response
+
+#### Investigate the models
+
+Swagger also includes the ability to annotate models, but for this case study I only included the default functionality where Swagger uses reflection on the models that are required as request/response parameters. To evaluate these models, contract the "Product Management" section and expand the "Models" section
+
+<img src="https://user-images.githubusercontent.com/113290/46247769-c4ae2e80-c3d5-11e8-8bc6-71c90f12fba9.PNG" alt="our models" width="800px" />
